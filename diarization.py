@@ -81,7 +81,7 @@ if __name__ == "__main__":
     # Define paths
     input_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS wav raw"
     output_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS diarized"
-    huggingface_token = ""
+    huggingface_token = open("hf.txt", "r").read().strip()
 
     # Initialize and run processing
     processor = SpeakerDiarizationProcessor(input_folder, output_folder, huggingface_token)
