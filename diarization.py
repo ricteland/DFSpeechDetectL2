@@ -22,19 +22,17 @@ class SpeakerDiarizationProcessor:
         print("Loading Pyannote speaker diarization model...")
         pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization-3.1",
-            use_auth_token=self.huggingface_token
+            use_auth_token=self.huggingface_token,
         )
         pipeline.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
+
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
         return pipeline
 
     def process_file(self, file_path):
         """Process a single audio file and save speaker-separated audio segments."""
         filename = os.path.basename(file_path)
-        file_identifier = self.extract_filename_identifier(filename)
-
-        if not file_identifier:
-            print(f"Skipping {filename}: Unable to extract identifier.")
-            return
 
         print(f"Processing: {filename}")
         diarization = self.pipeline(file_path, max_speakers=self.max_speakers)
@@ -55,7 +53,7 @@ class SpeakerDiarizationProcessor:
 
         # Save extracted speakers
         for speaker, speaker_audio in speakers_audio.items():
-            output_filename = f"{file_identifier}_{speaker}.wav"
+            output_filename = f"{filename}_{speaker}.wav"
             output_path = os.path.join(self.output_folder, output_filename)
             speaker_audio.export(output_path, format="wav")
             print(f"Saved: {output_path}")
@@ -69,18 +67,13 @@ class SpeakerDiarizationProcessor:
 
         print("Processing complete!")
 
-    @staticmethod
-    def extract_filename_identifier(filename):
-        """Extract file identifier using regex (e.g., 'BandXNationality')."""
-        match = re.search(r"([^\\\/]+)\.", filename)
-        return match.group(1) if match else None
 
 
 # === Usage ===
 if __name__ == "__main__":
     # Define paths
-    input_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS wav raw"
-    output_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS diarized"
+    input_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\temp"
+    output_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS diarized"
     huggingface_token = open("hf.txt", "r").read().strip()
 
     # Initialize and run processing

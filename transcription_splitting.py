@@ -95,9 +95,9 @@ class AudioTranscriber:
 
 # === Usage ===
 if __name__ == "__main__":
-    input_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS diarized"
-    clips_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS clips"
-    txt_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS txt"
+    input_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\test"
+    clips_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips"
+    txt_folder = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS txt"
 
     transcriber = AudioTranscriber(input_folder, clips_folder, txt_folder, model_name="base.en", device="cuda")
     transcriber.process_all_files()
