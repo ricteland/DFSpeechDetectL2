@@ -34,13 +34,10 @@ class AudioTranscriber:
         :param audio_path: Path to the input audio file.
         :return: List of (clip_path, transcript) tuples.
         """
-        print(f"Transcribing full audio to determine segment timestamps: {audio_path} ...")
 
         # Step 1: Transcribe the full audio
-        print("Transcribing full audio...")
         result = self.model.transcribe(audio_path, language="en", word_timestamps=True)
         segments = result["segments"]
-        print(f"Transcription complete! Found {len(segments)} segments.")
 
         # Load the full audio
         audio = AudioSegment.from_wav(audio_path)
@@ -86,12 +83,12 @@ class AudioTranscriber:
         for filename in os.listdir(self.input_folder):
             if filename.endswith(".wav"):
                 file_path = os.path.join(self.input_folder, filename)
-                print(f"\n🎙 Processing: {filename}")
+                print(f"\nTranscribing and splitting: {filename}")
 
                 # Step 1: Transcribe & split based on segments
                 self.transcribe_and_divide(file_path)
 
-        print("\n✅ Processing complete! All segmented clips are saved in 'IELTS clips' and transcripts in 'IELTS txt'.")
+        print("\n✅ Processing complete! All segmented clips and transcripts saved.")
 
 
 # === Usage ===

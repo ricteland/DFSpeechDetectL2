@@ -32,11 +32,11 @@ def show_audio_properties(directory_path):
 
 
 
-def downsample_audio(directory_path, output_directory, rate=24000):
+def downsample_audio(input_directory, output_directory, rate=24000):
     # Iterate through all WAV files in the directory
-    for filename in os.listdir(directory_path):
+    for filename in os.listdir(input_directory):
         if filename.endswith(".wav"):  # Process only .wav files
-            file_path = os.path.join(directory_path, filename)
+            file_path = os.path.join(input_directory, filename)
             output_path = os.path.join(output_directory, filename)  # Save with same filename
 
             # Load the original audio file
