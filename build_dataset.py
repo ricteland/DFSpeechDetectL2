@@ -49,8 +49,8 @@ class Preprocessor:
     def preprocess_files(self):
         print("Preprocessing files...")
 
-        # print("Diarizing...")
-        # self.diarize_file()
+        print("Diarizing...")
+        self.diarize_file()
 
         print("Downsampling...")
         self.downsample()
@@ -60,13 +60,6 @@ class Preprocessor:
         self.transcribe_file()
 
 
-input = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS data"
-diarized = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS diarized"
-output = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips"
-with open('your_file.txt', 'r', encoding='utf-8') as file:
-    hf_token = file.readline()
-
-Preprocessor(input, diarized, output, hf_token, 3, "cuda").preprocess_files()
 
 
 
