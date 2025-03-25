@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from downsampler import downsample_audio
+
 metadata = {
     'ABA': ('M', 'Arabic'),
     'SKA': ('F', 'Arabic'),
@@ -31,7 +32,7 @@ metadata = {
 data = []
 root_dir = r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0"
 
-def create_csv(metadata, root_dir):
+def create_csv_l2arctic(metadata, root_dir):
     for speaker, (gender, lang) in metadata.items():
         accent = f"{'Male' if gender == 'M' else 'Female'} {lang}"
         speaker_path_prev = os.path.join(root_dir, speaker)
@@ -62,12 +63,22 @@ def create_csv(metadata, root_dir):
                     'accent': accent
                 })
 
-def downsample_dataset(root_dir):
+def downsample_l2arctic(root_dir):
+    for speaker in os.listdir(root_dir):
+        if speaker in metadata:
+            print(f"Processing {speaker}...")
+            input_dir_prev = os.path.join(root_dir, speaker)
+            input_dir = os.path.join(input_dir_prev, speaker)
+            wav_dir = os.path.join(input_dir, 'wav')
+            downsample_audio(input_directory=wav_dir, output_directory=wav_dir, rate=24000)
 
-# create_csv(metadata, root_dir)
+
+# create_csv_l2arctic(metadata, root_dir)
 # df = pd.DataFrame(data)
 # df.to_csv(r'C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0\L2artic.csv', index=False)
 # print("Dataset created with", len(df), "rows.")
+#
+# downsample_l2arctic(root_dir)
 
-df_artic = pd.read_csv(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0\L2artic.csv")
-print(df_artic.iloc[0])
+df = pd.read_csv(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0\L2artic.csv")
+print(df["accent"].value_counts())
