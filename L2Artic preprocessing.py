@@ -29,6 +29,7 @@ metadata = {
     'PNV': ('F', 'Vietnamese'),
     'THV': ('F', 'Vietnamese'),
     'TLV': ('M', 'Vietnamese'),
+    'IELTS004': ('F', 'French')
 }
 
 data = []
@@ -132,9 +133,9 @@ def move_transcripts_l2(metadata, root_dir):
 #  downsample_l2arctic(root_dir)
 
 create_xtts_metadata(
-    wav_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0\wavs",
-    transcript_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0\transcripts",
-    output_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\l2arctic_release_v5.0",
+    wav_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS test\wavs",
+    transcript_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS test\transcripts",
+    output_dir=r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS test",
     eval_percentage=0.15,
     speaker_metadata=metadata
 )
