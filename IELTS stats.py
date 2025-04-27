@@ -4,26 +4,24 @@ import seaborn as sns
 import librosa
 import os
 
-df = pd.read_csv(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS merged.csv")
-
-
+df = pd.read_csv(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS merged balanced.csv")
 
 
 females_count = df["Examinee_gender"].value_counts()["F"]
 males_count = df["Examinee_gender"].value_counts()["M"]
 ratio_female_examinee = females_count / (females_count + males_count)
-print(f'Ratio for students F/M{ratio_female_examinee}')
+print(f'Ratio for students F/M {ratio_female_examinee}')
 
 females_count = df["Examinator_gender"].value_counts()["F"]
 males_count = df["Examinator_gender"].value_counts()["M"]
 ratio_female_examinator = females_count / (females_count + males_count)
-print(f'Ratio for examiners F/M{ratio_female_examinator}')
+print(f'Ratio for examiners F/M {ratio_female_examinator}')
 
 df["AccentStripped"] = df["Accent"].str.replace(" Accent", "", regex=False)
 df = df[df["AccentStripped"] != "Native"]
 
 def get_duration(filepath):
-    path = os.path.join(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips", filepath)
+    path = os.path.join(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips\balanced", filepath)
     try:
         duration = librosa.get_duration(path=path)
         return duration/3600
