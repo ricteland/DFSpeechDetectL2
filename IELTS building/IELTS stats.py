@@ -18,10 +18,9 @@ ratio_female_examinator = females_count / (females_count + males_count)
 print(f'Ratio for examiners F/M {ratio_female_examinator}')
 
 df["AccentStripped"] = df["Accent"].str.replace(" Accent", "", regex=False)
-df = df[df["AccentStripped"] != "Native"]
 
 def get_duration(filepath):
-    path = os.path.join(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips\balanced", filepath)
+    path = os.path.join(r"C:\Users\Usuario\Desktop\TUE\BEP 2025\data\IELTS\IELTS clips\balanced\wavs", filepath)
     try:
         duration = librosa.get_duration(path=path)
         return duration/3600
@@ -79,8 +78,8 @@ plt.show()
 #     plt.tight_layout()
 #     plt.show()
 
-
-
+print(df[df['Accent'] != 'Native']['Score'].mean())
+print(df['Score'].mean())
 print(df["Duration"].mean())
 print(df["Duration"].std())
 print(df["Duration"].max())
